@@ -12,7 +12,7 @@ node {
           ]
         ]
       ]
-    ),
-  sh 'ls -la'
+    )
+    sh 'ls -la'
   }
 }
