@@ -1,0 +1,9 @@
+node {
+  stage('Checkout') {
+    checkout([$class: 'GitSCM',
+    branches: [[name: '*/main']],
+    extensions: [],
+    userRemoteConfigs: [[credentialsId: 'github_token',
+    url: 'https://github.com/dradav97/project-terraform-cloudcamp']]])
+  }
+}
