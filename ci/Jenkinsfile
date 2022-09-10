@@ -4,7 +4,6 @@ node {
     branches: [[name: '*/main']],
     extensions: [],
     userRemoteConfigs: [[credentialsId: 'github_token',
-    url: 'https://github.com/dradav97/project-terraform-cloudcamp']]]),
-    sh 'ls -la'
+    url: 'https://github.com/dradav97/project-terraform-cloudcamp']]])
   }
 }
