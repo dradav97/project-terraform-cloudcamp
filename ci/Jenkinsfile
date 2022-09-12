@@ -1,18 +1,36 @@
+
+#!/usr/bin/env groovy
+// Inicializamos variable para guardar el error
+def err = null
+
 node {
-  stage('Checkout') {
-    checkout(
-      [
-        $class: 'GitSCM',
-        branches: [[name: '*/main']],
-        extensions: [],
-        userRemoteConfigs: [
-          [
-            credentialsId: 'github_token',
-            url: 'https://github.com/dradav97/project-terraform-cloudcamp'
+    // Creamos el try catch para obtener el error si sucede
+  try{
+    stage('Checkout') {
+      checkout(
+        [
+          $class: 'GitSCM',
+          branches: [[name: '*/main']],
+          extensions: [],
+          userRemoteConfigs: [
+            [
+              credentialsId: 'github_token',
+              url: 'https://github.com/dradav97/project-terraform-cloudcamp'
+            ]
           ]
         ]
-      ]
-    )
-    sh 'ls -la'
+      )
+      sh 'ls -la'
+    }
+  } catch(caughtError) {
+    err = caughtError
+    currentBuild.result = 'FAILURE'
+  } finally {
+    stage('Clean') {
+      cleanWs()
+    }
+    if(err) {
+      throw err
+    }
   }
 }
